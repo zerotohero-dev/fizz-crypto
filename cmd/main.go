@@ -25,13 +25,9 @@ func main() {
 
 	app.Configure(e, appName, e.Crypto.HoneybadgerApiKey, e.SanitizeCrypto)
 
-	// svc := service.NewCryptoService()
-
 	r := mux.NewRouter()
-
 	api.InitializeEndpoints(r)
-
-	// app.RouteHealthEndpoints(r)
+	app.RouteHealthEndpoints(r)
 
 	app.ListenAndServe(e, appName, e.Crypto.Port, nil)
 }
