@@ -12,29 +12,30 @@
 package service
 
 import (
-	"crypto/aes"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/zerotohero-dev/fizz-crypto/internal/service/aes"
 	"github.com/zerotohero-dev/fizz-entity/pkg/user"
 	"github.com/zerotohero-dev/fizz-logging/pkg/log"
 	"time"
 )
 
 type claims struct {
-	User    []byte
+	User []byte
 	jwt.StandardClaims
 }
 
 func (c cryptoService) JwtCreate(user user.User) string {
 	key := c.env.Crypto.JwtKey
+	pass := c.env.Crypto.AesPassphrase
 
 	// TODO: to constants.
-	expires := time.Now().Add(30 * 24 * time.Hour)
+	expires := time.Now().Add(c.env.Crypto.JwtExpiryHours * time.Hour)
 
-	email, err := aes.Encrypt([]byte(user.Email))
+	email, err := aes.Encrypt(pass, []byte(user.Email))
 
 	if err != nil {
-		LogErr(
+		log.Err(
 			fmt.Sprintf("JwtSign: Error encrypting user email (%s).", user.Email),
 			err.Error(),
 		)
@@ -43,7 +44,7 @@ func (c cryptoService) JwtCreate(user user.User) string {
 	}
 
 	cl := &claims{
-		User:    email,
+		User: email,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expires.Unix(),
 		},
