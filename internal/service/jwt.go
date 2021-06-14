@@ -62,7 +62,34 @@ func (c cryptoService) JwtCreate(user user.User) string {
 
 	return tokenString
 }
+func (c cryptoService) JwtVerify(token string) (valid bool, expiresAt int64, email string) {
+	cl := &claims{}
+	key := c.env.Crypto.JwtKey
 
-func (c cryptoService) JwtVerify(authToken string) (valid bool, expiresAt int64, email string) {
-	panic("implement me")
+	tkn, err := jwt.ParseWithClaims(token, cl, func(token *jwt.Token) (interface{}, error) {
+		return []byte(key), nil
+	})
+
+	if err != nil {
+		log.Err("JwtVerify: problem verifying token", err.Error(), token)
+
+		return false, -1, ""
+	}
+
+	if !tkn.Valid {
+		log.Info("JwtVerify: invalid token", token)
+
+		return false, -1, ""
+	}
+
+	eByte, err := aes.Decrypt(c.env.Crypto.AesPassphrase, cl.User)
+	if err != nil {
+		log.Err("JwtVerify: Error encrypting user email.", err.Error(), token)
+
+		return false, -1, ""
+	}
+
+	email = string(eByte)
+
+	return true, cl.ExpiresAt, email
 }

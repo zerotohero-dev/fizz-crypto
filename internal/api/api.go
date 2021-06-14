@@ -14,6 +14,7 @@ package api
 import (
 	"github.com/go-kit/kit/transport/http"
 	"github.com/gorilla/mux"
+	"github.com/zerotohero-dev/fizz-crypto/internal/endpoint"
 	"github.com/zerotohero-dev/fizz-crypto/internal/service"
 	"github.com/zerotohero-dev/fizz-env/pkg/env"
 )
@@ -59,7 +60,7 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 	// Verify the JSON Web Token.
 	route(
 		router, http.NewServer(
-			endpoint.MakeJwtVerifyEndpoint,
+			endpoint.MakeJwtVerifyEndpoint(svc),
 			transport.DecodeJtwVerifyRequesty,
 			transport.EncodeResponse,
 		),
@@ -69,7 +70,7 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 	// Create a random token.
 	route(
 		router, http.NewServer(
-			enpoint.MakeTokenCreateEndpoint,
+			endpoint.MakeTokenCreateEndpoint(svc),
 			transport.DecodeTokenCreateRequest,
 			transport.EncodeResponse,
 		),
