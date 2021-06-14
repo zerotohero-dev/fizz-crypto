@@ -26,8 +26,9 @@ func main() {
 	app.Configure(e, appName, e.Crypto.HoneybadgerApiKey, e.SanitizeCrypto)
 
 	r := mux.NewRouter()
-	api.InitializeEndpoints(r)
+	api.InitializeEndpoints(e, r)
 	app.RouteHealthEndpoints(r)
 
-	app.ListenAndServe(e, appName, e.Crypto.Port, nil)
+	// TODO: pass an actual handler instead of `nil`.
+	app.ListenAndServe(e, appName, e.Crypto.Port, r)
 }
