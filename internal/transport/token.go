@@ -13,9 +13,7 @@ package transport
 
 import (
 	"context"
-	"encoding/json"
 	"github.com/zerotohero-dev/fizz-entity/pkg/reqres"
-	"github.com/zerotohero-dev/fizz-logging/pkg/log"
 	"net/http"
 )
 
@@ -23,11 +21,11 @@ import (
 func DecodeTokenCreateRequest(_ context.Context, r *http.Request) (interface{}, error) {
 	var request reqres.TokenCreateRequest
 
-	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
-		log.Err("decodeTokenRequest: error decoding: %s", err.Error())
-
-		request.Err = "decodeTokenRequest: Problem decoding JSON."
-	}
+	//if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+	//	log.Err("decodeTokenRequest: error decoding: %s", err.Error())
+	//
+	//	request.Err = "decodeTokenRequest: Problem decoding JSON."
+	//}
 
 	return request, nil
 }
