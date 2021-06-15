@@ -251,6 +251,8 @@ github.com/urfave/cli v1.22.1/go.mod h1:Gos4lmkARVdJ6EkW0WaNv/tZAAMe9V7XWyB60NtX
 github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2/go.mod h1:UETIi67q53MR2AWcXfiuqkDkRtnGDLqkBTpCHuJHxtU=
 github.com/zerotohero-dev/fizz-app v0.1.9 h1:AAx/J7Y4AeXaw86LlzqyxgMh+5TdPnQv3U9oeWgaJPY=
 github.com/zerotohero-dev/fizz-app v0.1.9/go.mod h1:fN7pQNNhJk89AB/lOTpoHG/9tnX67bfNWung5zT9FIw=
+github.com/zerotohero-dev/fizz-app v0.1.10 h1:G1xynkz3Pc+yk+Eb1G4yV/sjQc2NU4Fvj5+1j8/wk+Y=
+github.com/zerotohero-dev/fizz-app v0.1.10/go.mod h1:fN7pQNNhJk89AB/lOTpoHG/9tnX67bfNWung5zT9FIw=
 github.com/zerotohero-dev/fizz-entity v0.1.0/go.mod h1:PPwQoZlPHz+lTCdppAk+EzEshjivO8JvZTwfqz1DOP4=
 github.com/zerotohero-dev/fizz-entity v0.1.1 h1:5QzzIF3xmpd6cy1ZxkYfRwK+Lz7evo31AV8oRRfC+ns=
 github.com/zerotohero-dev/fizz-entity v0.1.1/go.mod h1:PPwQoZlPHz+lTCdppAk+EzEshjivO8JvZTwfqz1DOP4=

@@ -14,8 +14,10 @@ package api
 import (
 	"github.com/go-kit/kit/transport/http"
 	"github.com/gorilla/mux"
+	"github.com/zerotohero-dev/fizz-app/pkg/app"
 	"github.com/zerotohero-dev/fizz-crypto/internal/endpoint"
 	"github.com/zerotohero-dev/fizz-crypto/internal/service"
+	"github.com/zerotohero-dev/fizz-crypto/internal/transport"
 	"github.com/zerotohero-dev/fizz-env/pkg/env"
 )
 
@@ -31,8 +33,8 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 	route(
 		router, http.NewServer(
 			endpoint.MakeHashCreateEndpoint(svc),
-			transport.DecodeHashRequest,
-			transport.EncodeResponse,
+			transport.DecodeHashCreateRequest,
+			app.EncodeResponse,
 		),
 		"POST", "/v1/hash",
 	)
@@ -41,8 +43,8 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 	route(
 		router, http.NewServer(
 			endpoint.MakeHashVerifyEndpoint(svc),
-			transport.DecodeVerifyHashRequest,
-			transport.EncodeResponse,
+			transport.DecodeHashVerifyRequest,
+			app.EncodeResponse,
 		),
 		"GET", "/v1/hash/{hashToVerify}",
 	)
@@ -52,7 +54,7 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 		router, http.NewServer(
 			endpoint.MakeJwtCreateEndpoint(svc),
 			transport.DecodeJwtCreateRequest,
-			transport.EncodeResponse,
+			app.EncodeResponse,
 		),
 		"POST", "/v1/jwt",
 	)
@@ -61,8 +63,8 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 	route(
 		router, http.NewServer(
 			endpoint.MakeJwtVerifyEndpoint(svc),
-			transport.DecodeJtwVerifyRequesty,
-			transport.EncodeResponse,
+			transport.DecodeJwtVerifyRequest,
+			app.EncodeResponse,
 		),
 		"GET", "/v1/jwt/{jwtToVerify}",
 	)
@@ -72,7 +74,7 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 		router, http.NewServer(
 			endpoint.MakeTokenCreateEndpoint(svc),
 			transport.DecodeTokenCreateRequest,
-			transport.EncodeResponse,
+			app.EncodeResponse,
 		),
 		"GET", "/v1/token",
 	)
