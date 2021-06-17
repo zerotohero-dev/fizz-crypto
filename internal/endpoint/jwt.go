@@ -19,6 +19,11 @@ import (
 	"github.com/zerotohero-dev/fizz-entity/pkg/user"
 )
 
+// MakeJwtCreateEndpoint creates an endpoint that generates a JSON Web Token
+// when provided an email. Note that no verification is done whether an active
+// user with that email exists. The assumption is that the service that’s calling
+// this endpoint has already done its due diligence and already checked that an
+// active user with the email exists in the database.
 func MakeJwtCreateEndpoint(svc service.CryptoService) endpoint.Endpoint {
 	return func(_ context.Context, request interface{}) (interface{}, error) {
 		gr, ok := request.(reqres.ContentTypeProblemRequest)
@@ -38,11 +43,8 @@ func MakeJwtCreateEndpoint(svc service.CryptoService) endpoint.Endpoint {
 			}, nil
 		}
 
-		// TODO: sanitization:
-		// Don’t create the jwt token if the user is not verified in the db.
-
 		u := user.User{
-			Info:                    user.Info{
+			Info: user.Info{
 				Email: req.Email,
 			},
 		}

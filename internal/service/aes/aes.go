@@ -19,7 +19,12 @@ import (
 )
 
 func Encrypt(aesPassphrase string, data []byte) ([]byte, error) {
-	block, _ := aes.NewCipher([]byte(aesPassphrase))
+	block, err := aes.NewCipher([]byte(aesPassphrase))
+
+	if err != nil {
+		return nil, err
+	}
+
 	gcm, err := cipher.NewGCM(block)
 
 	if err != nil {

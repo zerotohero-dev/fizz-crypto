@@ -28,12 +28,11 @@ func route(router *mux.Router, handler *http.Server, method string, path string)
 func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 	svc := service.NewCryptoService(e)
 
-
 	// Create a cryptographic hash.
 	route(
 		router, http.NewServer(
 			endpoint.MakeHashCreateEndpoint(svc),
-			transport.DecodeHashCreateRequest,
+			app.ContentTypeValidatingMiddleware(transport.DecodeHashCreateRequest),
 			app.EncodeResponse,
 		),
 		"POST", "/v1/hash",
@@ -43,17 +42,17 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 	route(
 		router, http.NewServer(
 			endpoint.MakeHashVerifyEndpoint(svc),
-			transport.DecodeHashVerifyRequest,
+			app.ContentTypeValidatingMiddleware(transport.DecodeHashVerifyRequest),
 			app.EncodeResponse,
 		),
-		"GET", "/v1/hash/{hashToVerify}",
+		"POST", "/v1/hash/verify",
 	)
 
 	// Create a JSON Web Token.
 	route(
 		router, http.NewServer(
 			endpoint.MakeJwtCreateEndpoint(svc),
-			transport.DecodeJwtCreateRequest,
+			app.ContentTypeValidatingMiddleware(transport.DecodeJwtCreateRequest),
 			app.EncodeResponse,
 		),
 		"POST", "/v1/jwt",
@@ -63,17 +62,17 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 	route(
 		router, http.NewServer(
 			endpoint.MakeJwtVerifyEndpoint(svc),
-			transport.DecodeJwtVerifyRequest,
+			app.ContentTypeValidatingMiddleware(transport.DecodeJwtVerifyRequest),
 			app.EncodeResponse,
 		),
-		"GET", "/v1/jwt/{jwtToVerify}",
+		"POST", "/v1/jwt/verify",
 	)
 
 	// Create a random token.
 	route(
 		router, http.NewServer(
 			endpoint.MakeTokenCreateEndpoint(svc),
-			transport.DecodeTokenCreateRequest,
+			app.ContentTypeValidatingMiddleware(transport.DecodeTokenCreateRequest),
 			app.EncodeResponse,
 		),
 		"GET", "/v1/token",
