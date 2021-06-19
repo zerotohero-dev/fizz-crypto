@@ -23,12 +23,13 @@ const appName = "fizz-crypto"
 func main() {
 	e := *env.New()
 
-	app.Configure(e, appName, e.Crypto.HoneybadgerApiKey, e.SanitizeCrypto)
+	appEnv := e.Crypto
+
+	app.Configure(e, appName, appEnv.HoneybadgerApiKey, appEnv.Sanitize)
 
 	r := mux.NewRouter()
 	api.InitializeEndpoints(e, r)
 	app.RouteHealthEndpoints(r)
 
-	// TODO: pass an actual handler instead of `nil`.
-	app.ListenAndServe(e, appName, e.Crypto.Port, r)
+	app.ListenAndServe(e, appName, appEnv.Port, r)
 }

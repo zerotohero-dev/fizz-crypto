@@ -269,6 +269,8 @@ github.com/zerotohero-dev/fizz-env v0.1.15 h1:GskwiYkr0Jk+qQGbIobo8JmKSgGUXXYUsz
 github.com/zerotohero-dev/fizz-env v0.1.15/go.mod h1:FPXQfRJ46qdmUXBaeanHg1dgx/wK2vJEmH/dTRr10tk=
 github.com/zerotohero-dev/fizz-env v0.1.16 h1:GTCEad9tj10FdSaZjhrwlotyFAkJSJZ9NMibzF+mrIQ=
 github.com/zerotohero-dev/fizz-env v0.1.16/go.mod h1:FPXQfRJ46qdmUXBaeanHg1dgx/wK2vJEmH/dTRr10tk=
+github.com/zerotohero-dev/fizz-env v0.1.17 h1:HMR88VJYB0/nXeeeZRafWwqvoOI9F0Qx+1FmrRZq2Kg=
+github.com/zerotohero-dev/fizz-env v0.1.17/go.mod h1:FPXQfRJ46qdmUXBaeanHg1dgx/wK2vJEmH/dTRr10tk=
 github.com/zerotohero-dev/fizz-logging v0.1.4 h1:iZKGk2ndOB4Y1Htxk0+ETklDxOqxyCYIVhCctrBgJNY=
 github.com/zerotohero-dev/fizz-logging v0.1.4/go.mod h1:s6XsyiMGmW50npkyU2x+ZiUjoLnzI6zGnAlkcjLh9SA=
 go.etcd.io/bbolt v1.3.3/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
