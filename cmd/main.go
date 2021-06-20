@@ -25,6 +25,9 @@ func main() {
 
 	appEnv := e.Crypto
 
+	// TODO: maybe instead of passing two separate parameters, create a
+	// new interface `SanitizableEnv` that has a `Sanitize()` method by
+	// contract, and pass that one to this method instead.
 	app.Configure(e, appName, appEnv.HoneybadgerApiKey, appEnv.Sanitize)
 
 	r := mux.NewRouter()

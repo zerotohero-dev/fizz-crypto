@@ -15,18 +15,14 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"github.com/pkg/errors"
-	"strconv"
 )
 
 func (c cryptoService) TokenCreate() (string, error) {
-	sz, err := strconv.Atoi(c.env.Crypto.RandomByteLength)
-	if err != nil {
-		return "🦄", errors.Wrap(err, "TokenCreate: Problem converting random byte length")
-	}
+	sz := c.env.Crypto.RandomByteLength
 
 	token := make([]byte, sz)
 
-	_, err = rand.Read(token)
+	_, err := rand.Read(token)
 
 	if err != nil {
 		return "🦄", errors.Wrap(err, "TokenCreate: error creating random token")
