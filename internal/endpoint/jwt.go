@@ -15,8 +15,8 @@ import (
 	"context"
 	"github.com/go-kit/kit/endpoint"
 	"github.com/zerotohero-dev/fizz-crypto/internal/service"
+	"github.com/zerotohero-dev/fizz-entity/pkg/data"
 	"github.com/zerotohero-dev/fizz-entity/pkg/reqres"
-	"github.com/zerotohero-dev/fizz-entity/pkg/user"
 )
 
 // MakeJwtCreateEndpoint creates an endpoint that generates a JSON Web Token
@@ -24,7 +24,7 @@ import (
 // user with that email exists. The assumption is that the service that’s calling
 // this endpoint has already done its due diligence and already checked that an
 // active user with the email exists in the database.
-func MakeJwtCreateEndpoint(svc service.CryptoService) endpoint.Endpoint {
+func MakeJwtCreateEndpoint(svc service.Service) endpoint.Endpoint {
 	return func(_ context.Context, request interface{}) (interface{}, error) {
 		gr, ok := request.(reqres.ContentTypeProblemRequest)
 
@@ -43,8 +43,8 @@ func MakeJwtCreateEndpoint(svc service.CryptoService) endpoint.Endpoint {
 			}, nil
 		}
 
-		u := user.User{
-			Info: user.Info{
+		u := data.User{
+			Info: data.Info{
 				Email: req.Email,
 			},
 		}
@@ -57,7 +57,7 @@ func MakeJwtCreateEndpoint(svc service.CryptoService) endpoint.Endpoint {
 	}
 }
 
-func MakeJwtVerifyEndpoint(svc service.CryptoService) endpoint.Endpoint {
+func MakeJwtVerifyEndpoint(svc service.Service) endpoint.Endpoint {
 	return func(_ context.Context, request interface{}) (interface{}, error) {
 		gr, hasContentTypeIssues := request.(reqres.ContentTypeProblemRequest)
 

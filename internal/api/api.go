@@ -26,7 +26,7 @@ func route(router *mux.Router, handler *http.Server, method string, path string)
 }
 
 func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
-	svc := service.NewCryptoService(e)
+	svc := service.New(e)
 
 	// Create a cryptographic hash.
 	route(

@@ -19,7 +19,7 @@ import (
 	"github.com/zerotohero-dev/fizz-logging/pkg/log"
 )
 
-func MakeTokenCreateEndpoint(svc service.CryptoService) endpoint.Endpoint {
+func MakeTokenCreateEndpoint(svc service.Service) endpoint.Endpoint {
 	return func(_ context.Context, request interface{}) (interface{}, error) {
 		gr, ok := request.(reqres.ContentTypeProblemRequest)
 

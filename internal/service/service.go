@@ -12,31 +12,26 @@
 package service
 
 import (
-	"github.com/zerotohero-dev/fizz-entity/pkg/user"
+	"github.com/zerotohero-dev/fizz-entity/pkg/data"
 	"github.com/zerotohero-dev/fizz-env/pkg/env"
 )
 
-// import "strconv"
-
-// var saltRounds, _ = strconv.Atoi(env.Env.BcryptHashRounds)
-
-type CryptoService interface {
+type Service interface {
 	TokenCreate() (string, error)
 
 	HashCreate(pwd string) (string, error)
 	HashVerify(pass, hash string) bool
 
-	JwtCreate(user user.User) string
+	JwtCreate(user data.User) string
 	JwtVerify(authToken string) (valid bool, expiresAt int64, email string)
 }
 
-type cryptoService struct{
+type service struct {
 	env env.FizzEnv
 }
 
-
-func NewCryptoService(e env.FizzEnv) CryptoService {
-	return cryptoService{
+func New(e env.FizzEnv) Service {
+	return &service{
 		env: e,
 	}
 }

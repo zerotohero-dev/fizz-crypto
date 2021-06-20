@@ -15,7 +15,7 @@ import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/zerotohero-dev/fizz-crypto/internal/service/aes"
-	"github.com/zerotohero-dev/fizz-entity/pkg/user"
+	"github.com/zerotohero-dev/fizz-entity/pkg/data"
 	"github.com/zerotohero-dev/fizz-logging/pkg/log"
 	"time"
 )
@@ -25,7 +25,7 @@ type claims struct {
 	jwt.StandardClaims
 }
 
-func (c cryptoService) JwtCreate(user user.User) string {
+func (c service) JwtCreate(user data.User) string {
 	key := c.env.Crypto.JwtKey
 	pass := c.env.Crypto.AesPassphrase
 
@@ -62,7 +62,7 @@ func (c cryptoService) JwtCreate(user user.User) string {
 
 	return tokenString
 }
-func (c cryptoService) JwtVerify(token string) (valid bool, expiresAt int64, email string) {
+func (c service) JwtVerify(token string) (valid bool, expiresAt int64, email string) {
 	cl := &claims{}
 	key := c.env.Crypto.JwtKey
 

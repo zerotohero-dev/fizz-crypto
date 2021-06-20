@@ -17,7 +17,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-func (c cryptoService) TokenCreate() (string, error) {
+func (c service) TokenCreate() (string, error) {
 	sz := c.env.Crypto.RandomByteLength
 
 	token := make([]byte, sz)

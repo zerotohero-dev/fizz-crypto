@@ -18,7 +18,7 @@ import (
 	"github.com/zerotohero-dev/fizz-entity/pkg/reqres"
 )
 
-func MakeHashCreateEndpoint(svc service.CryptoService) endpoint.Endpoint {
+func MakeHashCreateEndpoint(svc service.Service) endpoint.Endpoint {
 	return func(_ context.Context, request interface{}) (interface{}, error) {
 		gr, ok := request.(reqres.ContentTypeProblemRequest)
 
@@ -59,7 +59,7 @@ func MakeHashCreateEndpoint(svc service.CryptoService) endpoint.Endpoint {
 	}
 }
 
-func MakeHashVerifyEndpoint(svc service.CryptoService) endpoint.Endpoint {
+func MakeHashVerifyEndpoint(svc service.Service) endpoint.Endpoint {
 	return func(_ context.Context, request interface{}) (interface{}, error) {
 		gr, ok := request.(reqres.ContentTypeProblemRequest)
 
