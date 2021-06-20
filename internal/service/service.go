@@ -12,6 +12,7 @@
 package service
 
 import (
+	"context"
 	"github.com/zerotohero-dev/fizz-entity/pkg/data"
 	"github.com/zerotohero-dev/fizz-env/pkg/env"
 )
@@ -28,10 +29,12 @@ type Service interface {
 
 type service struct {
 	env env.FizzEnv
+	ctx context.Context
 }
 
-func New(e env.FizzEnv) Service {
+func New(e env.FizzEnv, ctx context.Context) Service {
 	return &service{
 		env: e,
+		ctx: ctx,
 	}
 }

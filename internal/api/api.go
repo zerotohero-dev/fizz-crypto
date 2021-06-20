@@ -12,6 +12,7 @@
 package api
 
 import (
+	"context"
 	"github.com/go-kit/kit/transport/http"
 	"github.com/gorilla/mux"
 	"github.com/zerotohero-dev/fizz-app/pkg/app"
@@ -26,7 +27,7 @@ func route(router *mux.Router, handler *http.Server, method string, path string)
 }
 
 func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
-	svc := service.New(e)
+	svc := service.New(e, context.Background())
 
 	// Create a cryptographic hash.
 	route(
