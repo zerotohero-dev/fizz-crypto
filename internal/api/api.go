@@ -22,15 +22,11 @@ import (
 	"github.com/zerotohero-dev/fizz-env/pkg/env"
 )
 
-func route(router *mux.Router, handler *http.Server, method string, path string) {
-	router.Methods(method).Path(path).Handler(handler)
-}
-
 func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 	svc := service.New(e, context.Background())
 
 	// Create a cryptographic hash.
-	route(
+	app.Route(
 		router, http.NewServer(
 			endpoint.MakeHashCreateEndpoint(svc),
 			app.ContentTypeValidatingMiddleware(transport.DecodeHashCreateRequest),
@@ -40,7 +36,7 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 	)
 
 	// Verify the hash.
-	route(
+	app.Route(
 		router, http.NewServer(
 			endpoint.MakeHashVerifyEndpoint(svc),
 			app.ContentTypeValidatingMiddleware(transport.DecodeHashVerifyRequest),
@@ -50,7 +46,7 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 	)
 
 	// Create a JSON Web Token.
-	route(
+	app.Route(
 		router, http.NewServer(
 			endpoint.MakeJwtCreateEndpoint(svc),
 			app.ContentTypeValidatingMiddleware(transport.DecodeJwtCreateRequest),
@@ -60,7 +56,7 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 	)
 
 	// Verify the JSON Web Token.
-	route(
+	app.Route(
 		router, http.NewServer(
 			endpoint.MakeJwtVerifyEndpoint(svc),
 			app.ContentTypeValidatingMiddleware(transport.DecodeJwtVerifyRequest),
@@ -70,7 +66,7 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 	)
 
 	// Create a random token.
-	route(
+	app.Route(
 		router, http.NewServer(
 			endpoint.MakeTokenCreateEndpoint(svc),
 			app.ContentTypeValidatingMiddleware(transport.DecodeTokenCreateRequest),
