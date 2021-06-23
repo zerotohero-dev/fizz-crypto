@@ -19,7 +19,8 @@ import (
 	"net/http"
 )
 
-func DecodeHashCreateRequest(_ context.Context, r *http.Request) (interface{}, error) {
+func DecodeHashCreateRequest(
+	_ context.Context, r *http.Request) (interface{}, error) {
 	var request reqres.HashCreateRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
@@ -31,7 +32,8 @@ func DecodeHashCreateRequest(_ context.Context, r *http.Request) (interface{}, e
 	return request, nil
 }
 
-func DecodeHashVerifyRequest(_ context.Context, r *http.Request) (interface{}, error) {
+func DecodeHashVerifyRequest(
+	_ context.Context, r *http.Request) (interface{}, error) {
 	var request reqres.HashVerifyRequest
 
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
