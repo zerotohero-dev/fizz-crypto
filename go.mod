@@ -14,7 +14,7 @@ require (
 	github.com/shirou/gopsutil v3.21.6+incompatible // indirect
 	github.com/zerotohero-dev/fizz-app v0.2.2
 	github.com/zerotohero-dev/fizz-entity v0.5.2
-	github.com/zerotohero-dev/fizz-env v0.3.2
+	github.com/zerotohero-dev/fizz-env v0.3.3
 	github.com/zerotohero-dev/fizz-logging v0.2.0
 	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97
 	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect

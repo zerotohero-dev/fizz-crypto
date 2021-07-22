@@ -22,10 +22,10 @@ import (
 	"github.com/zerotohero-dev/fizz-env/pkg/env"
 )
 
-const prefix = "/crypto"
-
 func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 	svc := service.New(e, context.Background())
+
+	prefix := e.Crypto.PathPrefix
 
 	// Create a cryptographic hash.
 	app.RoutePrefixedPath(
