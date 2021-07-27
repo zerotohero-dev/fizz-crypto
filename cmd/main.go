@@ -32,7 +32,7 @@ func main() {
 
 	r := mux.NewRouter()
 	api.InitializeEndpoints(e, r)
-	app.RouteHealthEndpoints(r)
+	app.RouteHealthEndpoints(e.Crypto.PathPrefix, r)
 
 	app.ListenAndServe(e, appName, appEnv.Port, r)
 }

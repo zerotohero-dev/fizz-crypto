@@ -44,9 +44,7 @@ func MakeJwtCreateEndpoint(svc service.Service) endpoint.Endpoint {
 		}
 
 		u := data.User{
-			Info: data.Info{
-				Email: req.Email,
-			},
+			Email: req.Email,
 		}
 
 		token := svc.JwtCreate(u)
