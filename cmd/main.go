@@ -16,8 +16,10 @@ import (
 	"github.com/zerotohero-dev/fizz-app/pkg/app"
 	"github.com/zerotohero-dev/fizz-crypto/internal/api"
 	"github.com/zerotohero-dev/fizz-env/pkg/env"
+	"github.com/zerotohero-dev/fizz-logging/pkg/log"
 )
 
+// TODO: maybe get the appname from the environment too.
 const appName = "fizz-crypto"
 
 func main() {
@@ -25,14 +27,13 @@ func main() {
 
 	appEnv := e.Crypto
 
-	// TODO: maybe instead of passing two separate parameters, create a
-	// new interface `SanitizableEnv` that has a `Sanitize()` method by
-	// contract, and pass that one to this method instead.
 	app.Configure(e, appName, appEnv.HoneybadgerApiKey, appEnv.Sanitize)
 
 	r := mux.NewRouter()
 	api.InitializeEndpoints(e, r)
 	app.RouteHealthEndpoints(e.Crypto.PathPrefix, r)
+
+	log.Info("Dummy log to test deployment…")
 
 	app.ListenAndServe(e, appName, appEnv.Port, r)
 }
