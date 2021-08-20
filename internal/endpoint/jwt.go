@@ -26,16 +26,14 @@ import (
 // active user with the email exists in the database.
 func MakeJwtCreateEndpoint(svc service.Service) endpoint.Endpoint {
 	return func(_ context.Context, request interface{}) (interface{}, error) {
-		gr, ok := request.(reqres.ContentTypeProblemRequest)
-
-		if ok {
+		gr, hasContentTypeProblem := request.(reqres.ContentTypeProblemRequest)
+		if hasContentTypeProblem {
 			return reqres.JwtCreateResponse{
 				Err: gr.Err,
 			}, nil
 		}
 
 		req := request.(reqres.JwtCreateRequest)
-
 		if req.Err != "" {
 			return reqres.JwtCreateResponse{
 				Token: "",
@@ -57,9 +55,8 @@ func MakeJwtCreateEndpoint(svc service.Service) endpoint.Endpoint {
 
 func MakeJwtVerifyEndpoint(svc service.Service) endpoint.Endpoint {
 	return func(_ context.Context, request interface{}) (interface{}, error) {
-		gr, hasContentTypeIssues := request.(reqres.ContentTypeProblemRequest)
-
-		if hasContentTypeIssues {
+		gr, hasContentTypeProblem := request.(reqres.ContentTypeProblemRequest)
+		if hasContentTypeProblem {
 			return reqres.JwtVerifyResponse{
 				Valid: false,
 				Err:   gr.Err,
@@ -67,7 +64,6 @@ func MakeJwtVerifyEndpoint(svc service.Service) endpoint.Endpoint {
 		}
 
 		req := request.(reqres.JwtVerifyRequest)
-
 		if req.Err != "" {
 			return reqres.JwtVerifyResponse{
 				Valid: false,

@@ -20,16 +20,14 @@ import (
 
 func MakeHashCreateEndpoint(svc service.Service) endpoint.Endpoint {
 	return func(_ context.Context, request interface{}) (interface{}, error) {
-		gr, ok := request.(reqres.ContentTypeProblemRequest)
-
-		if ok {
+		gr, hasContentTypeProblem := request.(reqres.ContentTypeProblemRequest)
+		if hasContentTypeProblem {
 			return reqres.HashCreateResponse{
 				Err: gr.Err,
 			}, nil
 		}
 
 		req := request.(reqres.HashCreateRequest)
-
 		if req.Err != "" {
 			return reqres.HashCreateResponse{
 				Hash: "",
@@ -45,7 +43,6 @@ func MakeHashCreateEndpoint(svc service.Service) endpoint.Endpoint {
 		}
 
 		hash, err := svc.HashCreate(req.Value)
-
 		if err != nil {
 			return reqres.HashCreateResponse{
 				Hash: "",

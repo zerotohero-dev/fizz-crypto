@@ -16,24 +16,19 @@ import (
 	"github.com/zerotohero-dev/fizz-app/pkg/app"
 	"github.com/zerotohero-dev/fizz-crypto/internal/api"
 	"github.com/zerotohero-dev/fizz-env/pkg/env"
-	"github.com/zerotohero-dev/fizz-logging/pkg/log"
 )
-
-// TODO: maybe get the appname from the environment too.
-const appName = "fizz-crypto"
 
 func main() {
 	e := *env.New()
 
 	appEnv := e.Crypto
+	svcName := appEnv.ServiceName
 
-	app.Configure(e, appName, appEnv.HoneybadgerApiKey, appEnv.Sanitize)
+	app.Configure(e, svcName, appEnv.HoneybadgerApiKey, appEnv.Sanitize)
 
 	r := mux.NewRouter()
 	api.InitializeEndpoints(e, r)
 	app.RouteHealthEndpoints(e.Crypto.PathPrefix, r)
 
-	log.Info("Dummy log to test deployment…")
-
-	app.ListenAndServe(e, appName, appEnv.Port, r)
+	app.ListenAndServe(e, svcName, appEnv.Port, r)
 }

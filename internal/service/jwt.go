@@ -28,12 +28,9 @@ type claims struct {
 func (c service) JwtCreate(user data.User) string {
 	key := c.env.Crypto.JwtKey
 	pass := c.env.Crypto.AesPassphrase
-
-	// TODO: to constants.
 	expires := time.Now().Add(c.env.Crypto.JwtExpiryHours * time.Hour)
 
 	email, err := aes.Encrypt(pass, []byte(user.Email))
-
 	if err != nil {
 		log.Err(
 			fmt.Sprintf("JwtSign: Error encrypting user email (%s).", user.Email),

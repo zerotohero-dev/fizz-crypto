@@ -22,6 +22,20 @@ import (
 	"github.com/zerotohero-dev/fizz-env/pkg/env"
 )
 
+var urls = struct {
+	SecureHash       string
+	SecureHashVerify string
+	Jwt              string
+	JwtVerify        string
+	SecureToken      string
+}{
+	SecureHash:       "/v1/hash",
+	SecureHashVerify: "/v1/hash/verify",
+	Jwt:              "/v1/jwt",
+	JwtVerify:        "/v1/jwt/verify",
+	SecureToken:      "/v1/token",
+}
+
 func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 	svc := service.New(e, context.Background())
 
@@ -34,7 +48,7 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 			app.ContentTypeValidatingMiddleware(transport.DecodeHashCreateRequest),
 			app.EncodeResponse,
 		),
-		router, "POST", prefix, "/v1/hash",
+		router, "POST", prefix, urls.SecureHash,
 	)
 
 	// Verify the hash.
@@ -44,7 +58,7 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 			app.ContentTypeValidatingMiddleware(transport.DecodeHashVerifyRequest),
 			app.EncodeResponse,
 		),
-		router, "POST", prefix, "/v1/hash/verify",
+		router, "POST", prefix, urls.SecureHashVerify,
 	)
 
 	// Create a JSON Web Token.
@@ -54,7 +68,7 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 			app.ContentTypeValidatingMiddleware(transport.DecodeJwtCreateRequest),
 			app.EncodeResponse,
 		),
-		router, "POST", prefix, "/v1/jwt",
+		router, "POST", prefix, urls.Jwt,
 	)
 
 	// Verify the JSON Web Token.
@@ -64,7 +78,7 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 			app.ContentTypeValidatingMiddleware(transport.DecodeJwtVerifyRequest),
 			app.EncodeResponse,
 		),
-		router, "POST", prefix, "/v1/jwt/verify",
+		router, "POST", prefix, urls.JwtVerify,
 	)
 
 	// Create a random token.
@@ -74,6 +88,6 @@ func InitializeEndpoints(e env.FizzEnv, router *mux.Router) {
 			app.ContentTypeValidatingMiddleware(transport.DecodeTokenCreateRequest),
 			app.EncodeResponse,
 		),
-		router, "GET", prefix, "/v1/token",
+		router, "GET", prefix, urls.SecureToken,
 	)
 }
