@@ -13,10 +13,10 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/rs/cors v1.8.0 // indirect
 	github.com/shirou/gopsutil v3.21.7+incompatible // indirect
-	github.com/zerotohero-dev/fizz-app v0.4.0
+	github.com/zerotohero-dev/fizz-app v0.4.1
 	github.com/zerotohero-dev/fizz-entity v0.5.3
-	github.com/zerotohero-dev/fizz-env v0.3.6
+	github.com/zerotohero-dev/fizz-env v0.3.7
 	github.com/zerotohero-dev/fizz-logging v0.2.0
 	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5
-	golang.org/x/sys v0.0.0-20210819135213-f52c844e1c1c // indirect
+	golang.org/x/sys v0.0.0-20210823070655-63515b42dcdf // indirect
 )
