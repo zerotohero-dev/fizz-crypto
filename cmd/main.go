@@ -61,6 +61,7 @@ x Install SPIRE server locally.
 // SPIFFE ID for IDM:     spiffe://fizzbuzz.pro/app/idm
 // SPIFFE ID for Crypto:  spiffe://fizzbuzz.pro/app/crypto
 
+
 func handleConnection(conn net.Conn) {
 	fmt.Println("handle connection")
 	defer func(conn net.Conn) {
@@ -98,9 +99,10 @@ func runSpireMtlSServer() {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
 
-		clientId := spiffeid.Must("fizzbuzz.pro", "app", "crypto")
+		// TODO: maybe use "default" ?
+		clientId := spiffeid.Must("fizzbuzz.pro", "app", "default")
 
-		fmt.Println(clientId)
+		fmt.Println("runSpireMtlsServer", clientId)
 
 		listener, err := spiffetls.ListenWithMode(ctx, "tcp", serverAddress,
 			spiffetls.MTLSServerWithSourceOptions(
