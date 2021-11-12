@@ -17,7 +17,7 @@ import (
 
 func (c service) HashCreate(pwd string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword(
-		[]byte(pwd), c.env.Crypto.BcryptHashRounds)
+		[]byte(pwd), c.args.BcryptHashRounds)
 
 	return string(bytes), err
 }
