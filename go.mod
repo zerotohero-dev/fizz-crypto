@@ -14,7 +14,7 @@ require (
 	github.com/rs/cors v1.8.0 // indirect
 	github.com/spiffe/go-spiffe/v2 v2.0.0-beta.10
 	github.com/zerotohero-dev/fizz-app v0.5.2
-	github.com/zerotohero-dev/fizz-entity v0.5.10
+	github.com/zerotohero-dev/fizz-entity v0.5.12
 	github.com/zerotohero-dev/fizz-env v0.4.6
 	github.com/zerotohero-dev/fizz-logging v0.3.0
 	golang.org/x/crypto v0.0.0-20211108221036-ceb1ce70b4fa

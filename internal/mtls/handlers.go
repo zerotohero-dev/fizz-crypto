@@ -12,52 +12,41 @@
 package mtls
 
 import (
-	"bufio"
 	"encoding/json"
-	"fmt"
+	"github.com/pkg/errors"
 	"github.com/zerotohero-dev/fizz-crypto/internal/service"
 	"github.com/zerotohero-dev/fizz-entity/pkg/reqres"
-	"log"
 	"net"
 )
 
-func handleConnection(conn net.Conn, svc service.Service) {
-	fmt.Println("handle connection")
-	defer func(conn net.Conn) {
-		err := conn.Close()
-		if err != nil {
-			panic(err.Error())
-		}
-	}(conn)
+func handleCryptoSecureHashVerify(conn net.Conn, svc service.Service) error {
+	return nil
+}
 
-	req, err := bufio.NewReader(conn).ReadString('\n')
-	if err != nil {
-		log.Printf("Error reading incoming data: %v", err)
-		return
-	}
+func handleCryptoJwt(conn net.Conn, svc service.Service) error {
+	return nil
+}
 
-	apiRequest := &reqres.MtlsApiRequest{}
+func handleSecureHash(conn net.Conn, svc service.Service) error {
+	return nil
+}
 
-	_ = json.Unmarshal([]byte(req), apiRequest)
-
-	log.Printf("Client says: %q", req)
-	log.Println(apiRequest.Endpoint) // /v1/token
-	log.Println(apiRequest.Method)   // "GET"
-
+func handleSecureToken(conn net.Conn, svc service.Service) error {
 	token, _ := svc.TokenCreate()
 	res := &reqres.TokenCreateResponse{
 		Token: token,
 	}
 
+	// TODO: handle serialization errors.
 	serialized, _ := json.Marshal(res)
 
-	// Send a response back to the client
-	if _, err = conn.Write([]byte(string(serialized) + "\n")); err != nil {
-		log.Printf("Unable to send response: %v", err)
-		return
+	if _, err := conn.Write([]byte(string(serialized) + "\n")); err != nil {
+		return errors.Wrap(err, "Unable to send a response")
 	}
+
+	return nil
 }
 
-func handleError(err error) {
-	log.Printf("Unable to accept connection: %v", err)
+func handleUnknown(conn net.Conn, svc service.Service) error {
+	return nil
 }
