@@ -20,16 +20,19 @@ import (
 )
 
 func listenAndServeApp(e env.FizzEnv) {
-	svcName := e.Crypto.ServiceName
+	go func() {
+		svcName := e.Crypto.ServiceName
 
-	r := mux.NewRouter()
-	// api.InitializeEndpoints(e, r)
+		r := mux.NewRouter()
+		// api.InitializeEndpoints(e, r)
 
-	app.RouteHealthEndpoints(e.Crypto.PathPrefix, r)
-	app.ListenAndServe(e, svcName, e.Crypto.Port, r)
+		app.RouteHealthEndpoints(e.Crypto.PathPrefix, r)
+		app.ListenAndServe(e, svcName, e.Crypto.Port, r)
+	}()
 }
 
 func listenAndServeMtls(e env.FizzEnv) {
+	// go func() {
 	mtls.ListenAndServe(service.Args{
 		JwtKey:           e.Crypto.JwtKey,
 		AesPassphrase:    e.Crypto.AesPassphrase,
@@ -39,7 +42,7 @@ func listenAndServeMtls(e env.FizzEnv) {
 		IsDevelopment:    e.Deployment.Type == env.Development,
 	},
 		mtls.SpireArgs{
-			ServerAddress:  e.Spire.ServerAddress,
+			ServerAddress:  e.Crypto.MtlsServerAddress,
 			SocketPath:     e.Spire.SocketPath,
 			AppTrustDomain: e.Spire.AppTrustDomainFizz,
 			AppPrefix:      e.Spire.AppPrefixFizz,
@@ -49,4 +52,5 @@ func listenAndServeMtls(e env.FizzEnv) {
 			AppNameMailer:  e.Mailer.ServiceName,
 		},
 	)
+	// }()
 }

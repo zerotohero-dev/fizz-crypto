@@ -27,5 +27,5 @@ type SpireArgs struct {
 }
 
 func ListenAndServe(cryptoArgs service.Args, spireArgs SpireArgs) {
-	go runSpireMtlSServer(cryptoArgs, spireArgs)
+	runSpireMtlSServer(cryptoArgs, spireArgs)
 }
