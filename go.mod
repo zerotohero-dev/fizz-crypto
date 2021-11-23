@@ -14,13 +14,13 @@ require (
 	github.com/rs/cors v1.8.0 // indirect
 	github.com/spiffe/go-spiffe/v2 v2.0.0-beta.10
 	github.com/zerotohero-dev/fizz-app v0.5.2
-	github.com/zerotohero-dev/fizz-entity v0.5.12
-	github.com/zerotohero-dev/fizz-env v0.4.6
+	github.com/zerotohero-dev/fizz-entity v0.5.13
+	github.com/zerotohero-dev/fizz-env v0.4.8
 	github.com/zerotohero-dev/fizz-logging v0.3.0
-	golang.org/x/crypto v0.0.0-20211108221036-ceb1ce70b4fa
-	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2 // indirect
-	golang.org/x/sys v0.0.0-20211112193437-faf0a1b62c6b // indirect
-	google.golang.org/genproto v0.0.0-20211112145013-271947fe86fd // indirect
+	golang.org/x/crypto v0.0.0-20211117183948-ae814b36b871
+	golang.org/x/net v0.0.0-20211118161319-6a13c67c3ce4 // indirect
+	golang.org/x/sys v0.0.0-20211117180635-dee7805ff2e1 // indirect
+	google.golang.org/genproto v0.0.0-20211118181313-81c1377c94b1 // indirect
 	google.golang.org/grpc v1.42.0 // indirect
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
 )
