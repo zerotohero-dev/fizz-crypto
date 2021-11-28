@@ -42,6 +42,8 @@ func runSpireMtlSServer(svcArgs service.Args, spireArgs SpireArgs) {
 		ids = []spiffeid.ID{appId, mailerId}
 	}
 
+	log.Info("Crypto mTLS server will try listening… (%s)", spireArgs.ServerAddress)
+
 	listener, err := spiffetls.ListenWithMode(ctx, "tcp", spireArgs.ServerAddress,
 		spiffetls.MTLSServerWithSourceOptions(
 			tlsconfig.AuthorizeOneOf(ids...),
