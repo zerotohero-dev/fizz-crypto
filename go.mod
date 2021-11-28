@@ -15,11 +15,11 @@ require (
 	github.com/spiffe/go-spiffe/v2 v2.0.0-beta.10
 	github.com/zerotohero-dev/fizz-app v0.5.2
 	github.com/zerotohero-dev/fizz-entity v0.5.13
-	github.com/zerotohero-dev/fizz-env v0.4.8
+	github.com/zerotohero-dev/fizz-env v0.4.9
 	github.com/zerotohero-dev/fizz-logging v0.3.0
 	golang.org/x/crypto v0.0.0-20211117183948-ae814b36b871
-	golang.org/x/net v0.0.0-20211118161319-6a13c67c3ce4 // indirect
-	golang.org/x/sys v0.0.0-20211117180635-dee7805ff2e1 // indirect
+	golang.org/x/net v0.0.0-20211123203042-d83791d6bcd9 // indirect
+	golang.org/x/sys v0.0.0-20211123173158-ef496fb156ab // indirect
 	google.golang.org/genproto v0.0.0-20211118181313-81c1377c94b1 // indirect
 	google.golang.org/grpc v1.42.0 // indirect
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect

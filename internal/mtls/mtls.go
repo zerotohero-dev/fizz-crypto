@@ -20,7 +20,7 @@ type SpireArgs struct {
 	SocketPath     string
 	AppPrefix      string
 	AppNameDefault string
-	AppNameCrypto  string
+	AppName        string
 	AppNameIdm     string
 	AppNameMailer  string
 	AppTrustDomain string

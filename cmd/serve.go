@@ -47,7 +47,7 @@ func listenAndServeMtls(e env.FizzEnv) {
 			AppTrustDomain: e.Spire.AppTrustDomainFizz,
 			AppPrefix:      e.Spire.AppPrefixFizz,
 			AppNameDefault: e.Spire.AppNameFizzDefault,
-			AppNameCrypto:  e.Crypto.ServiceName,
+			AppName:        e.Crypto.ServiceName,
 			AppNameIdm:     e.Idm.ServiceName,
 			AppNameMailer:  e.Mailer.ServiceName,
 		},

@@ -18,7 +18,7 @@ import (
 	"github.com/spiffe/go-spiffe/v2/spiffetls/tlsconfig"
 	"github.com/spiffe/go-spiffe/v2/workloadapi"
 	"github.com/zerotohero-dev/fizz-crypto/internal/service"
-	"log"
+	"github.com/zerotohero-dev/fizz-logging/pkg/log"
 	"net"
 )
 
@@ -49,8 +49,14 @@ func runSpireMtlSServer(svcArgs service.Args, spireArgs SpireArgs) {
 		))
 
 	if err != nil {
-		log.Fatalf("Unable to create TLS listener: %v", err)
+		log.Err("runSpireMtlSServer: Unable to create TLS listener: %v", err.Error())
+		panic(err.Error())
 	}
+
+	log.Info(
+		"🐢 Service '%s' is waiting for mTLS connections at '%s",
+		spireArgs.AppName, spireArgs.ServerAddress,
+	)
 
 	defer func(listener net.Listener) {
 		err := listener.Close()
