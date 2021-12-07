@@ -19,11 +19,11 @@ import (
 	"net"
 )
 
-func handleCryptoSecureHashVerify(conn net.Conn, svc service.Service) error {
+func handleSecureHashVerify(conn net.Conn, svc service.Service) error {
 	return nil
 }
 
-func handleCryptoJwt(conn net.Conn, svc service.Service) error {
+func handleJwt(conn net.Conn, svc service.Service) error {
 	return nil
 }
 

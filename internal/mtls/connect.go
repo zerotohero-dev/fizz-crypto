@@ -15,8 +15,6 @@ import (
 	"bufio"
 	"encoding/json"
 	"github.com/zerotohero-dev/fizz-crypto/internal/service"
-	"github.com/zerotohero-dev/fizz-entity/pkg/endpoint"
-	"github.com/zerotohero-dev/fizz-entity/pkg/method"
 	"github.com/zerotohero-dev/fizz-entity/pkg/reqres"
 	"github.com/zerotohero-dev/fizz-logging/pkg/log"
 	"net"
@@ -42,23 +40,7 @@ func handleConnection(conn net.Conn, svc service.Service) {
 
 	log.Info("Client says: %q %s %s", req, apiRequest.Endpoint, apiRequest.Method)
 
-	switch {
-	case apiRequest.Endpoint == endpoint.Crypto.SecureHashVerify &&
-		apiRequest.Method == method.Post:
-		_ = handleCryptoSecureHashVerify(conn, svc)
-	case apiRequest.Endpoint == endpoint.Crypto.Jwt &&
-		apiRequest.Method == method.Post:
-		_ = handleCryptoJwt(conn, svc)
-	case apiRequest.Endpoint == endpoint.Crypto.SecureHash &&
-		apiRequest.Method == method.Post:
-		_ = handleSecureHash(conn, svc)
-	case apiRequest.Endpoint == endpoint.Crypto.SecureToken &&
-		apiRequest.Method == method.Get:
-		_ = handleSecureToken(conn, svc)
-	default:
-		_ = handleUnknown(conn, svc)
-	}
-
+	multiplex(apiRequest.Endpoint, apiRequest.Method, conn, svc)
 }
 
 func handleError(err error) {
