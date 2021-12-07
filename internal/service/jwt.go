@@ -26,9 +26,9 @@ type claims struct {
 }
 
 func (c service) JwtCreate(user data.User) string {
-	key := c.env.Crypto.JwtKey
-	pass := c.env.Crypto.AesPassphrase
-	expires := time.Now().Add(c.env.Crypto.JwtExpiryHours * time.Hour)
+	key := c.args.JwtKey
+	pass := c.args.AesPassphrase
+	expires := time.Now().Add(c.args.JwtExpiration)
 
 	email, err := aes.Encrypt(pass, []byte(user.Email))
 	if err != nil {
@@ -61,7 +61,7 @@ func (c service) JwtCreate(user data.User) string {
 }
 func (c service) JwtVerify(token string) (valid bool, expiresAt int64, email string) {
 	cl := &claims{}
-	key := c.env.Crypto.JwtKey
+	key := c.args.JwtKey
 
 	tkn, err := jwt.ParseWithClaims(token, cl, func(token *jwt.Token) (interface{}, error) {
 		return []byte(key), nil
@@ -79,7 +79,7 @@ func (c service) JwtVerify(token string) (valid bool, expiresAt int64, email str
 		return false, -1, ""
 	}
 
-	eByte, err := aes.Decrypt(c.env.Crypto.AesPassphrase, cl.User)
+	eByte, err := aes.Decrypt(c.args.AesPassphrase, cl.User)
 	if err != nil {
 		log.Err("JwtVerify: Error encrypting user email.", err.Error(), token)
 

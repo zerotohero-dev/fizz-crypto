@@ -8,5 +8,3 @@
 #    )  . ),((  ))\;,
 #   /;`,,/7),)) )) )\,,
 #  (& )`   (,((,((;( ))\,
-
-go build -o fizz-crypto cmd/config.go cmd/serve.go cmd/main.go

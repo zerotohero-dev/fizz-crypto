@@ -18,7 +18,7 @@ import (
 )
 
 func (c service) TokenCreate() (string, error) {
-	sz := c.env.Crypto.RandomByteLength
+	sz := c.args.RandomByteLength
 
 	token := make([]byte, sz)
 

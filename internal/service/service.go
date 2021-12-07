@@ -14,7 +14,7 @@ package service
 import (
 	"context"
 	"github.com/zerotohero-dev/fizz-entity/pkg/data"
-	"github.com/zerotohero-dev/fizz-env/pkg/env"
+	"time"
 )
 
 type Service interface {
@@ -27,14 +27,26 @@ type Service interface {
 	JwtVerify(authToken string) (valid bool, expiresAt int64, email string)
 }
 
-type service struct {
-	env env.FizzEnv
-	ctx context.Context
+type Args struct {
+	JwtKey           string
+	AesPassphrase    string
+	JwtExpiration    time.Duration
+	RandomByteLength int
+	BcryptHashRounds int
+	IsDevelopment    bool
 }
 
-func New(e env.FizzEnv, ctx context.Context) Service {
+type service struct {
+	args Args
+	ctx  context.Context
+}
+
+func New(
+	args Args,
+	ctx context.Context,
+) Service {
 	return &service{
-		env: e,
-		ctx: ctx,
+		args: args,
+		ctx:  ctx,
 	}
 }
