@@ -27,7 +27,7 @@ func multiplex(
 ) {
 	switch {
 	case apiEndpoint == endpoint.Crypto.SecureHashVerify && apiMethod == method.Post:
-		err := handleSecureHashVerify(conn, svc)
+		err := handleSecureHashVerify(conn, svc, body)
 		if err != nil {
 			log.Err("error handling crypto secure hash verification %s", err.Error())
 		}
@@ -37,17 +37,17 @@ func multiplex(
 			log.Err("error handling jwt: %s", err.Error())
 		}
 	case apiEndpoint == endpoint.Crypto.SecureHash && apiMethod == method.Post:
-		err := handleSecureHash(conn, svc)
+		err := handleSecureHash(conn, svc, body)
 		if err != nil {
 			log.Err("error handling secure hash: %s", err.Error())
 		}
 	case apiEndpoint == endpoint.Crypto.SecureToken && apiMethod == method.Get:
-		err := handleSecureToken(conn, svc)
+		err := handleSecureToken(conn, svc, body)
 		if err != nil {
 			log.Err("error handling secure token: %s", err.Error())
 		}
 	default:
-		err := handleUnknown(conn, svc)
+		err := handleUnknown(conn, svc, body)
 		if err != nil {
 			log.Err("error handling unknown request: %s", err.Error())
 		}

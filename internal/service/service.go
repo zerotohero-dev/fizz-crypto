@@ -28,12 +28,15 @@ type Service interface {
 }
 
 type Args struct {
-	JwtKey           string
-	AesPassphrase    string
-	JwtExpiration    time.Duration
-	RandomByteLength int
-	BcryptHashRounds int
-	IsDevelopment    bool
+	JwtKey            string
+	AesPassphrase     string
+	JwtExpiration     time.Duration
+	RandomByteLength  int
+	BcryptHashRounds  int
+	IsDevelopment     bool
+	MtlsServerAddress string
+	MtlsSocketPath    string
+	MtlsAppName       string
 }
 
 type service struct {

@@ -42,7 +42,7 @@ func payload(request string) (string, error) {
 	return body, nil
 }
 
-func handleSecureHashVerify(conn net.Conn, svc service.Service, request string) error {
+func handleSecureHashVerify(conn net.Conn, svc service.Service, body string) error {
 	return nil
 }
 
@@ -62,8 +62,8 @@ func handleJwt(conn net.Conn, svc service.Service, request string) error {
 	return send(conn, result)
 }
 
-func handleSecureHash(conn net.Conn, svc service.Service, request string) error {
-	body, err := payload(request)
+func handleSecureHash(conn net.Conn, svc service.Service, body string) error {
+	body, err := payload(body)
 	if err != nil {
 		return errors.Wrap(err, "handleSecureHash: problem with unmarshal")
 	}
@@ -84,7 +84,7 @@ func handleSecureHash(conn net.Conn, svc service.Service, request string) error 
 	})
 }
 
-func handleSecureToken(conn net.Conn, svc service.Service) error {
+func handleSecureToken(conn net.Conn, svc service.Service, body string) error {
 	token, _ := svc.TokenCreate()
 	res := &reqres.TokenCreateResponse{
 		Token: token,
@@ -93,7 +93,7 @@ func handleSecureToken(conn net.Conn, svc service.Service) error {
 	return send(conn, res)
 }
 
-func handleUnknown(conn net.Conn, svc service.Service) error {
+func handleUnknown(conn net.Conn, svc service.Service, body string) error {
 	log.Warning("Unknown request")
 	return nil
 }

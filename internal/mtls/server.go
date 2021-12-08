@@ -13,67 +13,30 @@ package mtls
 
 import (
 	"context"
-	"github.com/spiffe/go-spiffe/v2/spiffeid"
-	"github.com/spiffe/go-spiffe/v2/spiffetls"
-	"github.com/spiffe/go-spiffe/v2/spiffetls/tlsconfig"
-	"github.com/spiffe/go-spiffe/v2/workloadapi"
 	"github.com/zerotohero-dev/fizz-crypto/internal/service"
 	"github.com/zerotohero-dev/fizz-logging/pkg/log"
+	"github.com/zerotohero-dev/fizz-mtls/pkg/mtls"
+	"github.com/zerotohero-dev/fizz-mtls/pkg/mtls/ext"
 	"net"
 )
 
-func runSpireMtlSServer(svcArgs service.Args, spireArgs SpireArgs) {
+func ListenAndServe(cryptoArgs service.Args, spireArgs ext.SpireArgs) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
+	svc := service.New(cryptoArgs, ctx)
 
-	trustDomain := spireArgs.AppTrustDomain
-	appPrefix := spireArgs.AppPrefix
-	idmAppName := spireArgs.AppNameIdm
-	mailerAppName := spireArgs.AppNameMailer
-	anyAppName := spireArgs.AppNameDefault
-
-	var ids []spiffeid.ID
-	if svcArgs.IsDevelopment {
-		anyId, _ := spiffeid.New(trustDomain, appPrefix, anyAppName)
-		ids = []spiffeid.ID{anyId}
-	} else {
-		appId, _ := spiffeid.New(trustDomain, appPrefix, idmAppName)
-		mailerId, _ := spiffeid.New(trustDomain, appPrefix, mailerAppName)
-		ids = []spiffeid.ID{appId, mailerId}
+	mux := func(conn net.Conn) {
+		handleConnection(conn, svc)
 	}
 
-	log.Info("Crypto mTLS server will try listening… (%s)", spireArgs.ServerAddress)
-
-	listener, err := spiffetls.ListenWithMode(ctx, "tcp", spireArgs.ServerAddress,
-		spiffetls.MTLSServerWithSourceOptions(
-			tlsconfig.AuthorizeOneOf(ids...),
-			workloadapi.WithClientOptions(workloadapi.WithAddr(spireArgs.SocketPath)),
-		))
-
+	allowedIds, err := ext.AllowList(spireArgs, cryptoArgs.IsDevelopment)
 	if err != nil {
-		log.Err("runSpireMtlSServer: Unable to create TLS listener: %v", err.Error())
-		panic(err.Error())
+		log.Err("ListenAndServe: Unable to acquire SVIDs: %v", err.Error())
 	}
 
-	log.Info(
-		"🐢 Service '%s' is waiting for mTLS connections at '%s",
-		spireArgs.AppName, spireArgs.ServerAddress,
+	mtls.ListenAndServe(
+		cryptoArgs.MtlsServerAddress, cryptoArgs.MtlsSocketPath, cryptoArgs.MtlsAppName,
+		allowedIds,
+		mux, handleError,
 	)
-
-	defer func(listener net.Listener) {
-		err := listener.Close()
-		if err != nil {
-			panic(err.Error())
-		}
-	}(listener)
-
-	svc := service.New(svcArgs, ctx)
-
-	for {
-		conn, err := listener.Accept()
-		if err != nil {
-			go handleError(err)
-		}
-		go handleConnection(conn, svc)
-	}
 }

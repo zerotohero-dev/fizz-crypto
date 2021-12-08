@@ -17,6 +17,7 @@ import (
 	"github.com/zerotohero-dev/fizz-crypto/internal/mtls"
 	"github.com/zerotohero-dev/fizz-crypto/internal/service"
 	"github.com/zerotohero-dev/fizz-env/pkg/env"
+	"github.com/zerotohero-dev/fizz-mtls/pkg/mtls/ext"
 )
 
 func listenAndServeApp(e env.FizzEnv) {
@@ -32,18 +33,18 @@ func listenAndServeApp(e env.FizzEnv) {
 }
 
 func listenAndServeMtls(e env.FizzEnv) {
-	// go func() {
 	mtls.ListenAndServe(service.Args{
-		JwtKey:           e.Crypto.JwtKey,
-		AesPassphrase:    e.Crypto.AesPassphrase,
-		JwtExpiration:    e.Crypto.JwtExpiration,
-		RandomByteLength: e.Crypto.RandomByteLength,
-		BcryptHashRounds: e.Crypto.BcryptHashRounds,
-		IsDevelopment:    e.Deployment.Type == env.Development,
+		JwtKey:            e.Crypto.JwtKey,
+		AesPassphrase:     e.Crypto.AesPassphrase,
+		JwtExpiration:     e.Crypto.JwtExpiration,
+		RandomByteLength:  e.Crypto.RandomByteLength,
+		BcryptHashRounds:  e.Crypto.BcryptHashRounds,
+		IsDevelopment:     e.Deployment.Type == env.Development,
+		MtlsServerAddress: e.Crypto.MtlsServerAddress,
+		MtlsSocketPath:    e.Spire.SocketPath,
+		MtlsAppName:       e.Crypto.ServiceName,
 	},
-		mtls.SpireArgs{
-			ServerAddress:  e.Crypto.MtlsServerAddress,
-			SocketPath:     e.Spire.SocketPath,
+		ext.SpireArgs{
 			AppTrustDomain: e.Spire.AppTrustDomainFizz,
 			AppPrefix:      e.Spire.AppPrefixFizz,
 			AppNameDefault: e.Spire.AppNameFizzDefault,
@@ -52,5 +53,4 @@ func listenAndServeMtls(e env.FizzEnv) {
 			AppNameMailer:  e.Mailer.ServiceName,
 		},
 	)
-	// }()
 }

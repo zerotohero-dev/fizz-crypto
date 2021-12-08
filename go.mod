@@ -12,15 +12,18 @@ require (
 	github.com/pborman/uuid v1.2.1 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/rs/cors v1.8.0 // indirect
+	github.com/shirou/gopsutil v3.21.11+incompatible // indirect
 	github.com/spiffe/go-spiffe/v2 v2.0.0-beta.10
+	github.com/yusufpapurcu/wmi v1.2.2 // indirect
 	github.com/zerotohero-dev/fizz-app v0.5.2
-	github.com/zerotohero-dev/fizz-entity v0.5.13
+	github.com/zerotohero-dev/fizz-entity v0.5.14
 	github.com/zerotohero-dev/fizz-env v0.4.9
 	github.com/zerotohero-dev/fizz-logging v0.3.0
-	golang.org/x/crypto v0.0.0-20211117183948-ae814b36b871
-	golang.org/x/net v0.0.0-20211123203042-d83791d6bcd9 // indirect
-	golang.org/x/sys v0.0.0-20211123173158-ef496fb156ab // indirect
-	google.golang.org/genproto v0.0.0-20211118181313-81c1377c94b1 // indirect
+	github.com/zerotohero-dev/fizz-mtls v0.0.4 // indirect
+	golang.org/x/crypto v0.0.0-20211202192323-5770296d904e
+	golang.org/x/net v0.0.0-20211208012354-db4efeb81f4b // indirect
+	golang.org/x/sys v0.0.0-20211205182925-97ca703d548d // indirect
+	google.golang.org/genproto v0.0.0-20211207154714-918901c715cf // indirect
 	google.golang.org/grpc v1.42.0 // indirect
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
 )
