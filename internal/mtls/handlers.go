@@ -21,33 +21,28 @@ import (
 	"net"
 )
 
-func send(conn net.Conn, result interface{}) error {
-	serialized, _ := json.Marshal(result)
-	if _, err := conn.Write([]byte(string(serialized) + "\n")); err != nil {
-		return errors.Wrap(err, "Unable to send a response")
-	}
-
-	return nil
-}
-
-func payload(request string) (string, error) {
-	var req reqres.MtlsApiRequest
-
-	err := json.Unmarshal([]byte(request), &req)
+func handleJwtVerify(conn net.Conn, svc service.Service, body string) error {
+	body, err := payload(body)
 	if err != nil {
-		return "", errors.Wrap(err, "payload: problem with unmarshal")
+		return errors.Wrap(err, "handleJwtVerify: problem with unmarshal")
 	}
 
-	body := req.Body
-	return body, nil
+	var jvr reqres.JwtVerifyRequest
+	err = json.Unmarshal([]byte(body), &jvr)
+	if err != nil {
+		return errors.Wrap(err, "handleJwtVerify: problem with unmarshal")
+	}
+
+	valid, expiresAt, email := svc.JwtVerify(jvr.Token)
+	return send(conn, reqres.JwtVerifyResponse{
+		Valid: valid,
+		Expires: expiresAt,
+		Email: email,
+	})
 }
 
-func handleSecureHashVerify(conn net.Conn, svc service.Service, body string) error {
-	return nil
-}
-
-func handleJwt(conn net.Conn, svc service.Service, request string) error {
-	body, err := payload(request)
+func handleJwt(conn net.Conn, svc service.Service, body string) error {
+	body, err := payload(body)
 	if err != nil {
 		return errors.Wrap(err, "handleJwt: problem with unmarshal")
 	}
@@ -58,8 +53,28 @@ func handleJwt(conn net.Conn, svc service.Service, request string) error {
 		return errors.Wrap(err, "handleJwt: problem with unmarshal")
 	}
 
-	result := svc.JwtCreate(data.User{Email:jcr.Email})
-	return send(conn, result)
+	token := svc.JwtCreate(data.User{Email: jcr.Email})
+	return send(conn, reqres.JwtCreateResponse{
+		Token: token,
+	})
+}
+
+func handleSecureHashVerify(conn net.Conn, svc service.Service, body string) error {
+	body, err := payload(body)
+	if err != nil {
+		return errors.Wrap(err, "handleSecureHashVerify: problem with unmarshal")
+	}
+
+	var hwr reqres.HashVerifyRequest
+	err = json.Unmarshal([]byte(body), &hwr)
+	if err != nil {
+		return errors.Wrap(err, "handleSecureHashVerify: problem with unmarshal")
+	}
+
+	verified := svc.HashVerify(hwr.Value, hwr.Hash)
+	return send(conn, reqres.HashVerifyResponse{
+		Verified: verified,
+	})
 }
 
 func handleSecureHash(conn net.Conn, svc service.Service, body string) error {

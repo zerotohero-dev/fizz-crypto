@@ -36,6 +36,11 @@ func multiplex(
 		if err != nil {
 			log.Err("error handling jwt: %s", err.Error())
 		}
+	case apiEndpoint == endpoint.Crypto.JwtVerify && apiMethod == method.Post:
+		err := handleJwtVerify(conn, svc, body)
+		if err != nil {
+			log.Err("error handling jwt: %s", err.Error())
+		}
 	case apiEndpoint == endpoint.Crypto.SecureHash && apiMethod == method.Post:
 		err := handleSecureHash(conn, svc, body)
 		if err != nil {
