@@ -20,7 +20,10 @@ import (
 )
 
 func multiplex(
-	apiEndpoint string, apiMethod method.Method, conn net.Conn, svc service.Service,
+	apiEndpoint string,
+	apiMethod method.Method,
+	body string,
+	conn net.Conn, svc service.Service,
 ) {
 	switch {
 	case apiEndpoint == endpoint.Crypto.SecureHashVerify && apiMethod == method.Post:
@@ -29,7 +32,7 @@ func multiplex(
 			log.Err("error handling crypto secure hash verification %s", err.Error())
 		}
 	case apiEndpoint == endpoint.Crypto.Jwt && apiMethod == method.Post:
-		err := handleJwt(conn, svc)
+		err := handleJwt(conn, svc, body)
 		if err != nil {
 			log.Err("error handling jwt: %s", err.Error())
 		}

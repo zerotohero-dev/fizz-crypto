@@ -40,7 +40,7 @@ func handleConnection(conn net.Conn, svc service.Service) {
 
 	log.Info("Client says: %q %s %s", req, apiRequest.Endpoint, apiRequest.Method)
 
-	multiplex(apiRequest.Endpoint, apiRequest.Method, conn, svc)
+	multiplex(apiRequest.Endpoint, apiRequest.Method, req, conn, svc)
 }
 
 func handleError(err error) {
