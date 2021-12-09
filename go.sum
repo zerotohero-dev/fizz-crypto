@@ -608,6 +608,8 @@ github.com/zerotohero-dev/fizz-env v0.4.8 h1:Jbadk/xuAcdaM1f0PpisINSpRXvU3iiwb3p
 github.com/zerotohero-dev/fizz-env v0.4.8/go.mod h1:FPXQfRJ46qdmUXBaeanHg1dgx/wK2vJEmH/dTRr10tk=
 github.com/zerotohero-dev/fizz-env v0.4.9 h1:hTjvyFJ6xvAxvrTA7VP0L21zHzXu1nT8NGDhZT/U0/U=
 github.com/zerotohero-dev/fizz-env v0.4.9/go.mod h1:FPXQfRJ46qdmUXBaeanHg1dgx/wK2vJEmH/dTRr10tk=
+github.com/zerotohero-dev/fizz-env v0.5.0 h1:Jq79dYY2X7CquWGl74AOvY38h8Wx9NQBy4S0Rz5lQoQ=
+github.com/zerotohero-dev/fizz-env v0.5.0/go.mod h1:FPXQfRJ46qdmUXBaeanHg1dgx/wK2vJEmH/dTRr10tk=
 github.com/zerotohero-dev/fizz-logging v0.1.4/go.mod h1:s6XsyiMGmW50npkyU2x+ZiUjoLnzI6zGnAlkcjLh9SA=
 github.com/zerotohero-dev/fizz-logging v0.2.0 h1:jGobYqWaVXcEOYt0si6co7WGvpeuCd7PAEn/qd4kuUQ=
 github.com/zerotohero-dev/fizz-logging v0.2.0/go.mod h1:SGQjBmDNT/ZwjbsuNEdH8j88P0tI0+aHfbQKDx7f0ho=
@@ -615,6 +617,10 @@ github.com/zerotohero-dev/fizz-logging v0.3.0 h1:xgW0mT8GIQWqOfGYXKvfEt1/JSMrIka
 github.com/zerotohero-dev/fizz-logging v0.3.0/go.mod h1:VARCrre3rCL2M6NeTbYYYJ1f3Bb2k6WmSkBflr+r/dc=
 github.com/zerotohero-dev/fizz-mtls v0.0.4 h1:BS+B/INTHj+fCdwGBEzSGPfueYNGAqCGXcRT01B4lMs=
 github.com/zerotohero-dev/fizz-mtls v0.0.4/go.mod h1:66ndhKu+WUlgrMPjHQwFizSFZYbJO/qXbia8GJNBptc=
+github.com/zerotohero-dev/fizz-mtls v0.0.5 h1:8FJa9ix0F+IlyFRyCMwbMacLwaOfJ54P9/sd+8PdEOk=
+github.com/zerotohero-dev/fizz-mtls v0.0.5/go.mod h1:66ndhKu+WUlgrMPjHQwFizSFZYbJO/qXbia8GJNBptc=
+github.com/zerotohero-dev/fizz-mtls v0.0.6 h1:KQt0ytVQmrZW8TSIf5jRT4dWTJR7jY4etIA74HaNeq8=
+github.com/zerotohero-dev/fizz-mtls v0.0.6/go.mod h1:66ndhKu+WUlgrMPjHQwFizSFZYbJO/qXbia8GJNBptc=
 go.etcd.io/bbolt v1.3.3/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/etcd v0.0.0-20191023171146-3cf2f69b5738/go.mod h1:dnLIgRNXwCJa5e+c6mIZCrds/GIG4ncV9HhK5PX7jPg=
 go.etcd.io/etcd/api/v3 v3.5.0/go.mod h1:cbVKeC6lCfl7j/8jBhAK6aIYO9XOjdptoxU/nLQcPvs=
@@ -1011,6 +1017,8 @@ google.golang.org/genproto v0.0.0-20211118181313-81c1377c94b1 h1:b9mVrqYfq3P4bCd
 google.golang.org/genproto v0.0.0-20211118181313-81c1377c94b1/go.mod h1:5CzLGKJ67TSI2B9POpiiyGha0AjJvZIUgRMt1dSmuhc=
 google.golang.org/genproto v0.0.0-20211207154714-918901c715cf h1:PSEM+IQFb9xdsj2CGhfqUTfsZvF8DScCVP1QZb2IiTQ=
 google.golang.org/genproto v0.0.0-20211207154714-918901c715cf/go.mod h1:5CzLGKJ67TSI2B9POpiiyGha0AjJvZIUgRMt1dSmuhc=
+google.golang.org/genproto v0.0.0-20211208223120-3a66f561d7aa h1:I0YcKz0I7OAhddo7ya8kMnvprhcWM045PmkBdMO9zN0=
+google.golang.org/genproto v0.0.0-20211208223120-3a66f561d7aa/go.mod h1:5CzLGKJ67TSI2B9POpiiyGha0AjJvZIUgRMt1dSmuhc=
 google.golang.org/grpc v1.17.0/go.mod h1:6QZJwpn2B+Zp71q/5VxRsJ6NXXVCE5NRUHRo+f3cWCs=
 google.golang.org/grpc v1.19.0/go.mod h1:mqu4LbDTu4XGKhr4mRzUsmM4RtVoemTSY81AxZiDr8c=
 google.golang.org/grpc v1.20.0/go.mod h1:chYK+tFQF0nDUGJgXMSgLCQk3phJEuONr2DCgLDdAQM=
